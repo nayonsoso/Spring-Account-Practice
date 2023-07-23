@@ -31,5 +31,6 @@ public static AccountDto fromEntity(Account account){
 
 5. 그런데 계좌 생성을 하기 위해서 /account를 입력했는데 오류 발생 -> 유저가 아무도 저장되어있지 않기 때문에 userId로 검색을 했을 때 에러 뜬 것임. 따라서 처음 요구조건에 맞게 미리 데이터를 저장해보자. -> resource 폴더 밑에 data.sql 파일을 만든다 -> sql 문으로 accountUser을 넣어준다.
 
+6. 이때 sql 문을 쓰면서 주의할 점은, 우리가 대문자로 선언한건 소문자로 바꿔주고, 카멜 표기법으로 합성어 시작을 대문자로 만들어준건 _소문자로 바꿔야 한다는 점이다 e.g : AccountUser => account_user
 
-
+7. 또하나 주의할 점은, application.yml 파일에서 jpa: defer-datasource-initialization: true를 선언해야 한다는 점이다. (데이터 초기값 입력을 테이블 생성 이후로 미루겠다는 의미)
