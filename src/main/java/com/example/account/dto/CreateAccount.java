@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class CreateAccount {
     @Getter
     @Setter
+    @AllArgsConstructor
     public static class Request{
         // 컨트롤러에서 @Valid를 request앞에 달아주었는데, 이 @Valid가 제대로 작동하기 위해서는
         // 어떤것이 @Valid 조건인지도 명시를 해줘야 함 -> @NotNull, @Min
