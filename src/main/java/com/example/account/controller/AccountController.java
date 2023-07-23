@@ -1,6 +1,7 @@
 package com.example.account.controller;
 
 import com.example.account.domain.Account;
+import com.example.account.dto.AccountDto;
 import com.example.account.dto.CreateAccount;
 import com.example.account.service.AccountService;
 import com.example.account.service.RedisTestService;
@@ -19,9 +20,14 @@ public class AccountController {
     public CreateAccount.Response createAccount( //post 방식이므로 request body 사용
             @RequestBody @Valid CreateAccount.Request request
     ) {
-        accountService.createAccount(request.getUserId(),
-                request.getInitialBalance());
-        return "success";
+        // 여기서 리턴되는 AccountDto는 서비스와 컨트롤러 소통용이기 때문에
+        // 응답용 CreateAccount.Response로 바꿔줘야 함 - fromEntity함수를 Response안에 생성!
+        // AccountDto accountDto = accountService.createAccount(request.getUserId(), request.getInitialBalance());
+
+        return CreateAccount.Response.from(
+                accountService.createAccount(
+                        request.getUserId(),
+                        request.getInitialBalance()));
     }
 
     @GetMapping("/get-lock")
