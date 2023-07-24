@@ -26,12 +26,12 @@ public class TransactionController {
     private final TransactionService transactionService;
 
     @PostMapping("/transaction/use")
-    @AccountLock // 이 어노테이션은
+    @AccountLock // 이 어노테이션은 계좌 내용을 변경할 때 락을 잡겠다는 뜻임
     public UseBalance.Response useBalance(
             @Valid @RequestBody UseBalance.Request request
     ) throws InterruptedException {
         try {
-            Thread.sleep(3000L);
+            Thread.sleep(3000L); // 일부러 락 충돌을 테스트 하기 위해 추가한 코드
             return UseBalance.Response.from( // 계좌를 사용한 결과인 TransactionDto를 Response 형태로 바꿔줌
                     transactionService.useBalance(request.getUserId(),
                             request.getAccountNumber(), request.getAmount())
