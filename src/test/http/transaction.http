@@ -1,0 +1,32 @@
+### use balance
+POST http://localhost:8080/transaction/use
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "accountNumber": "1000000002",
+  "amount":100
+}
+
+### use balance2
+POST http://localhost:8080/transaction/use
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "accountNumber": "1000000002",
+  "amount":100
+}
+
+### cancel balance
+POST http://localhost:8080/transaction/cancel
+Content-Type: application/json
+
+{
+  "transactionId": "일단 거래를 하고, json을 본 다음 붙여넣어서 직접 채워야 함",
+  "accountNumber": "1000000002",
+  "amount":100
+}
+
+### query transaction
+GET http://localhost:8080/transaction/{거래 생성 후 거래 아이디 입력}

@@ -18,4 +18,8 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     // @ManyToOne 으로 AccountUser accountUser; 인스턴스를 선언했기 때문에
     // 자동으로 두 도메인(테이블)이 연결된 것이다 - 아마 JPA의 문법인 것 같은데..!
     Integer countByAccountUser(AccountUser accountUser);
+
+    Optional<Account> findByAccountNumber(String AccountNumber);
+
+    List<Account> findByAccountUser(AccountUser accountUser);
 }
