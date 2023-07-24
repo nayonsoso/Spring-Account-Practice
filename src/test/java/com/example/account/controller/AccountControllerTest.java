@@ -4,9 +4,11 @@ import com.example.account.domain.Account;
 import com.example.account.dto.AccountDto;
 import com.example.account.dto.CreateAccount;
 import com.example.account.dto.DeleteAccount;
+import com.example.account.exception.AccountException;
 import com.example.account.type.AccountStatus;
 import com.example.account.service.AccountService;
 import com.example.account.service.RedisTestService;
+import com.example.account.type.ErrorCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -139,7 +141,18 @@ class AccountControllerTest {
                 .andExpect(jsonPath("$[2].balance").value(3000));
     }
 
-    //
+    @Test // 계좌에 대한 실패를 일괄적으로 처리해주기 위함
+    void failGetAccount() throws Exception {
+        //given - 무엇이 되었든 계좌가 찾아지지 않는다는 에러를 던질 것이다.
+        given(accountService.getAccount(anyLong()))
+                .willThrow(new AccountException(ErrorCode.ACCOUNT_NOT_FOUND));
 
-
+        //when
+        //then
+        mockMvc.perform(get("/account/876"))
+                .andDo(print())
+                .andExpect(jsonPath("$.errorCode").value("ACCOUNT_NOT_FOUND"))
+                .andExpect(jsonPath("$.errorMessage").value("계좌가 없습니다."))
+                .andExpect(status().isOk());
+    }
 }
