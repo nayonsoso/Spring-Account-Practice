@@ -30,8 +30,12 @@ public class AccountService {
      */
     @Transactional
     public AccountDto createAccount(Long userId, Long initialBalance){
+        // 사용자가 있는지 조회하는 부분 - 없으면 AccountException 발생시킴
         AccountUser accountUser = accountUserRepository.findById(userId)
                 .orElseThrow(()->new AccountException(ErrorCode.USER_NOT_FOUND));
+
+        // 아이디에 해당하는 사람의 계좌가 10개가 넘는지 확인
+        validateCreateAccount(accountUser);
 
         // 계좌번호 생성하는 부분 : 가장 최근에 생성된 계좌의 계좌번호 +1
         String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
@@ -48,6 +52,13 @@ public class AccountService {
                         .balance(initialBalance)
                         .registeredAt(LocalDateTime.now())
                         .build()));
+    }
+
+    // 아이디에 해당하는 사람의 계좌가 10개가 넘는지 확인
+    private void validateCreateAccount(AccountUser accountUser) {
+        if(accountRepository.countByAccountUser(accountUser)>= 10){
+            throw new AccountException(ErrorCode.MAX_ACCOUNT_PER_USER_10);
+        }
     }
 
     @Transactional
