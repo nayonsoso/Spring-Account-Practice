@@ -16,6 +16,7 @@ import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static com.example.account.type.AccountStatus.IN_USE;
@@ -43,9 +44,21 @@ public class AccountService {
         validateCreateAccount(accountUser);
 
         // 계좌번호 생성하는 부분 : 가장 최근에 생성된 계좌의 계좌번호 +1
+        /* // 기존 코드
         String newAccountNumber = accountRepository.findFirstByOrderByIdDesc()
                 .map(account -> (Integer.parseInt(account.getAccountNumber()))+1+"")
                 .orElse("1000000000");
+         */
+
+        // 랜덤한 10자리의 계좌번호
+        Random random = new Random();
+        StringBuilder buffer = new StringBuilder(10);
+
+        for (int i = 0; i < 10; i++) {
+            int rndInt = 48 + (int)(random.nextFloat() * (10)); // 0~9까지의 수 생성
+            buffer.append((char)rndInt);
+        }
+        String newAccountNumber = buffer.toString();
 
         // 강사님은 계속 한번 쓰이는 변수는 의미가 없다면서 return문을 엄청 길게 만드는데,
         // 그 이유가 중간에 다른 로직이 끼어들 수 있다는 것 때문!
