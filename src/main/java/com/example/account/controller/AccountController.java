@@ -36,7 +36,7 @@ public class AccountController {
     public DeleteAccount.Response deleteAccount(
             @RequestBody @Valid DeleteAccount.Request request
     ) {
-        return DeleteAccount.Response.from( //
+        return DeleteAccount.Response.from(
                 accountService.deleteAccount(
                         request.getUserId(),
                         request.getAccountNumber()
@@ -55,5 +55,11 @@ public class AccountController {
                                 .balance(accountDto.getBalance())
                                 .build())
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping("/account/{id}")
+    public Account getAccount(
+            @PathVariable Long id) {
+        return accountService.getAccount(id);
     }
 }

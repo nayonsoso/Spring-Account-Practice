@@ -24,8 +24,8 @@ public enum ErrorCode {
     TOO_OLD_ORDER_TO_CANCEL("1년이 지난 거래는 취소가 불가능합니다."),
 
     INTERNAL_SERVER_ERROR("내부 서버 오류가 발생했습니다."),
-    ACCOUNT_TRANSACTION_LOCK("해당 계좌는 사용 중입니다."),
+    ACCOUNT_TRANSACTION_LOCK("해당 계좌는 사용 중입니다.")
     ;
-     ;
+
     private final String description;
 }

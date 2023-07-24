@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder(builderMethodName = "doesNotUseThisBuilder")
+@Builder(builderMethodName = "doesNotUseThisBuilder") // 빌더를 상속 구조에서는 쓰고 싶은데, 여기서는 쓰고 싶지 않을 때
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {

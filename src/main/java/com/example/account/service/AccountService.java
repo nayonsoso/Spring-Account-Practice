@@ -37,8 +37,7 @@ public class AccountService {
     @Transactional
     public AccountDto createAccount(Long userId, Long initialBalance){
         // 사용자가 있는지 조회하는 부분 - 없으면 AccountException 발생시킴
-        AccountUser accountUser = accountUserRepository.findById(userId)
-                .orElseThrow(()->new AccountException(USER_NOT_FOUND));
+        AccountUser accountUser = getAccountUser(userId);
 
         // 아이디에 해당하는 사람의 계좌가 10개가 넘는지 확인
         validateCreateAccount(accountUser);
@@ -131,8 +130,7 @@ public class AccountService {
 
     @Transactional
     public List<AccountDto> getAccountsByUserId(Long userId) {
-        AccountUser accountUser = accountUserRepository.findById(userId)
-                .orElseThrow(() -> new AccountException(USER_NOT_FOUND));
+        AccountUser accountUser = getAccountUser(userId);
 
         List<Account> accounts = accountRepository
                 .findByAccountUser(accountUser);
