@@ -3,9 +3,9 @@ POST http://localhost:8080/transaction/use
 Content-Type: application/json
 
 {
-  "userId": 1,
-  "accountNumber": "1000000002",
-  "amount":100
+  "userId": 2,
+  "accountNumber": "5371685311",
+  "amount":1000
 }
 
 ### use balance2
@@ -13,9 +13,9 @@ POST http://localhost:8080/transaction/use
 Content-Type: application/json
 
 {
-  "userId": 1,
-  "accountNumber": "1000000002",
-  "amount":100
+  "userId": 2,
+  "accountNumber": "5371685311",
+  "amount":1000
 }
 
 ### cancel balance
@@ -23,9 +23,9 @@ POST http://localhost:8080/transaction/cancel
 Content-Type: application/json
 
 {
-  "transactionId": "일단 거래를 하고, json을 본 다음 붙여넣어서 직접 채워야 함",
-  "accountNumber": "1000000002",
-  "amount":100
+  "transactionId": "438d88674d0c4930b14eb1812a8a181e",
+  "accountNumber": "5371685311",
+  "amount":1000
 }
 
 ### query transaction
